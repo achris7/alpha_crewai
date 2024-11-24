@@ -1,3 +1,66 @@
+---
+research_alpha_opportunities:
+  description: 
+   Conduct quantitative and other research to identify alpha opportunities in the crypto market,
+    including technical analysis, fundamental analysis, and sentiment analysis. Generate signals that indicate potential alpha opportunities across different time horizons - near-term, mid-term, 
+    and long-term. Collect and process large datasets including price movements, trading volumes, economic indicators, news sentiment, and other relevant factors to identify market trends and anomalies. 
+    Using statistical methods, develop mathematical models that can predict future price movements based on historical data patterns. 
+    Near-term: Models focused on short-term price fluctuations, often used for day trading or high-frequency trading strategies, might leverage technical analysis indicators and recent market data. 
+    Mid-term: Strategies might focus on identifying momentum trends or key market events, suitable for swing trading or holding positions for a few weeks or months. 
+    Long-term: Models analyzing fundamental factors like token valuations, onchain metrics and economic indicators can be used to identify potential long-term investment opportunities. 
+
+
+Regular meetings with portfolio managers and traders to discuss current market conditions, model outputs, and potential trade ideas. 
+Alert systems:
+Automated alerts can be set up to notify traders when a model identifies a significant trading opportunity based on pre-defined parameters. 
+Important considerations:
+Backtesting:
+Models are rigorously tested on historical data to ensure their effectiveness before being implemented in live markets. 
+Risk management:
+Quants and traders need to consider potential risks associated with their models and implement appropriate risk management strategies. 
+Continuous monitoring:
+Market conditions can change quickly, so models need to be regularly monitored and adjusted as necessary
+  expected_output: A detailed report on immediate, mid term and long term alpha opportunities with potential risks and rewards for {company_name}.
+  async_execution: false
+  agent: crypto_alpha_researcher
+
+advise_trade_executions:
+  description: Generate trading signals, which indicate potential entry and exit points for a position based on the identified patterns. Generate signals that indicate trading opportunities across different time horizons - near-term, mid-term, 
+    and long-term. Identify patterns and trends in data to recommend when to buy, sell, or hold a particular asset based on their predicted future price movements. Utilize advanced quantitative models and algorithms to make informed trading decisions.Identify patterns and trends in data to recommend when to buy, sell, or hold a particular asset based on their predicted future price movements.
+  Advise on trade executions with human approval, suggesting buy and sell actions and related strategies and positions based on output of research_alpha_opportunities and market conditions.
+  Continuously monitor and analyze market conditions, adjusting trading positions and strategies to optimize profitability and minimize risks.
+  expected_output: A list of advised trade executions with rationales, tailored for
+    human approval at {company_name}.
+  async_execution: false
+  agent: crypto_trading_advisor
+  context:
+  - research_alpha_opportunities
+
+manage_asset_portfolio:
+  description: Oversee and rebalance asset allocations to ensure alignment with financial
+    objectives.
+  expected_output: An updated asset portfolio strategy that optimizes returns for
+    {company_name}.
+  async_execution: false
+  agent: portfolio_manager
+  context:
+  - advise_trade_executions
+
+assess_financial_risks:
+  description: Monitor and assess financial risks, implementing mitigation strategies
+    as per risk management frameworks.
+  expected_output: A risk assessment report with mitigation strategies, ensuring compliance
+    for {company_name}.
+  async_execution: false
+  agent: risk_assessor
+ensure_digital_security:
+  description: Implement cybersecurity measures to protect digital assets and ensure
+    compliance with security protocols.
+  expected_output: A comprehensive cybersecurity strategy for safeguarding {company_name}'s
+    digital assets.
+  async_execution: false
+  agent: cybersecurity_specialist
+
 research_task:
   description: >
     Conduct a thorough research about {topic}
