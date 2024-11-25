@@ -1,25 +1,29 @@
 ---
 research_alpha_opportunities:
   description: 
-   Conduct quantitative and other research to identify alpha opportunities in the crypto market,
-    including technical analysis, fundamental analysis, and sentiment analysis. Generate signals that indicate potential alpha opportunities across different time horizons - near-term, mid-term, 
-    and long-term. Collect and process large datasets including price movements, trading volumes, economic indicators, news sentiment, and other relevant factors to identify market trends and anomalies. 
-    Using statistical methods, develop mathematical models that can predict future price movements based on historical data patterns. 
-    Near-term model development and maintenance focused on short-term price fluctuations, often used for day trading or high-frequency trading strategies, might leverage technical analysis indicators and recent market data. 
-    Mid-term strategy development and maintenance focused on identifying momentum trends or key market events, suitable for swing trading or holding positions for a few weeks or months. 
-    Long-term model development and maintenance analyzing fundamental factors like token valuations, onchain metrics and economic indicators can be used to identify potential long-term investment opportunities. 
-  expected_output: A detailed report on immediate, mid term and long term alpha opportunities with potential risks and rewards for {company_name}.
+   Conduct quantitative, technical, fundamental, sentiment, and other research analysis to identify alpha opportunities in the crypto market. 
+   Generate signals that indicate alpha opportunities across different time horizons - near-term, mid-term, and long-term. 
+   Collect, process and monitor macro indicators, onchain metrics, price movements, trading volumes, economic indicators, news sentiment, 
+   and other relevant factors to identify opportunities, market trends and anomalies. 
+   Near-term strategy and position development and maintenance focused on short-term price fluctuations, leveraging technical analysis indicators and recent market data. 
+   Mid-term strategy and position development and maintenance focused on identifying momentum trends and key market events. 
+   Long-term strategy and position development and maintenance analyzing fundamental factors like token valuations, onchain metrics and economic indicators can be used to identify potential long-term investment opportunities. 
+  expected_output: Detailed reports on immediate, mid term and long term alpha opportunities with potential risks and rewards for crypto_trading_advisor to execute.
   async_execution: true
   agent: crypto_alpha_researcher
   tools:
+  context: 
+  - modelling
+  - assess_risks
 
-advise_trade_executions:
-  description: Generate trading signals, which indicate potential entry and exit points for a position based on the identified patterns. Generate signals that indicate trading opportunities across different time horizons - near-term, mid-term, 
-    and long-term. Identify patterns and trends in data to recommend when to buy, sell, or hold a particular asset based on their predicted future price movements. Utilize advanced quantitative models and algorithms to make informed trading decisions.Identify patterns and trends in data to recommend when to buy, sell, or hold a particular asset based on their predicted future price movements.
-  Advise on trade executions with human approval, suggesting buy and sell actions and related strategies and positions based on output of research_alpha_opportunities and market conditions.
-  Continuously monitor and analyze market conditions, adjusting trading positions and strategies to optimize profitability and minimize risks.
-  expected_output: A list of advised trade executions with rationales, tailored for
-    human approval at {company_name}.
+advise_trade_bot_executions:
+  description: Generate trading bot configurations, adaptations, updates and changes, which indicate entry and exit conditions for a position based on identified patterns and research_alpha_opportunities output. 
+  These trading bot configurations and subsequent adaptations, updates and changes should be across different time horizons - near-term, mid-term, and long-term. 
+  Include in advised bot configurations patterns and trends in data that recommend conditions to buy, sell, or hold a particular asset based on their predicted future price movements. 
+  Utilize advanced quantitative models and algorithms to make informed trading decisions.
+  Continuously monitor and analyze market conditions, adjusting trading bot configurations suggestions and strategies to optimize profitability and minimize risks.
+  Set up automated alerts to notify team when a model identifies a significant trading opportunity and bot configuration adaptations are needed.
+  expected_output: A list of advised trade executions with rationales, tailored for {company_name}.
   async_execution: true
   agent: crypto_trading_advisor
   tools:
@@ -29,57 +33,33 @@ advise_trade_executions:
   - manage_asset_portfolio
 
 manage_asset_portfolio:
-  description: Oversee and rebalance asset allocations to ensure alignment with financial
-    objectives. Set up automated alerts to notify traders and team when a model identifies a significant trading opportunity based on pre-defined parameters. 
-    Backtesting: Models are rigorously tested on historical data to ensure their effectiveness before being implemented in live markets. 
-    Continuous monitoring: Market conditions can change quickly, so models need to be regularly monitored and adjusted as necessary.
-  expected_output: An updated asset portfolio strategy that optimizes returns for
-    {company_name}.
+  description: Oversee and evaluate asset allocations and portoflio performance to ensure alignment with financial objectives. 
+    Define investment or financial goals and risk tolerance.
+    Backtest bot configurations, strategies and models so they are rigorously tested on historical data to ensure their effectiveness before and while they're implemented in live markets. 
+  expected_output: An updated asset portfolio strategy that optimizes returns for {company_name}.
   async_execution: true
-  agent: portfolio_manager
+  agent: crypto_portfolio_manager
   tools:
   context:
   - advise_trade_executions
   - assess_risks
   - research_alpha_opportunities
+  - modelling
 
 assess_risks:
-  description: Monitor and assess financial risks, implementing mitigation strategies
-    as per risk management frameworks.
-  expected_output: A risk assessment report with mitigation strategies, ensuring compliance
-    for {company_name}.
-  async_execution: false
-  agent: risk_assessor
+  description: Monitor and assess financial and other portfoliorisks, generating mitigation strategies.
+  expected_output: A risk assessment report with mitigation strategies
+  async_execution: true
+  tools:
+  agent: crypto_risk_assessor
   context:
   - advise_trade_executions
 
-ensure_digital_security:
-  description: Implement cybersecurity measures to protect digital assets and ensure
-    compliance with security protocols.
-  expected_output: A comprehensive cybersecurity strategy for safeguarding {company_name}'s
-    digital assets.
+modelling::
+  description: Using statistical methods, develop mathematical models that can predict future short, mid and long term price movements based on historical data patterns. 
+  expected_output: 
   async_execution: true
-  agent: cybersecurity_specialist
+  agent: crypto_alpha_researcher
   tools:
   context: 
   -
-
-
-
-research_task:
-  description: >
-    Conduct a thorough research about {topic}
-    Make sure you find any interesting and relevant information given
-    the current year is 2024.
-  expected_output: >
-    A list with 10 bullet points of the most relevant information about {topic}
-  agent: researcher
-
-reporting_task:
-  description: >
-    Review the context you got and expand each topic into a full section for a report.
-    Make sure the report is detailed and contains any and all relevant information.
-  expected_output: >
-    A fully fledge reports with the mains topics, each with a full section of information.
-    Formatted as markdown without '```'
-  agent: reporting_analyst
