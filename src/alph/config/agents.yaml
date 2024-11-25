@@ -40,7 +40,7 @@ crypto_portfolio_manager:
   allow_code_execution: true
 
 crypto_risk_assessor:
-  role: Crypto Risk Reporting Manager
+  role: Crypto Risk and Reporting Manager
   goal: Evaluate and mitigate financial risks in trading activities by suggesting risk control strategies to mitigate potential market and operational risks while also 
   generating daily portfolio insights and statements based on the portfolio's performance, trades executed, and portfolio changes.
   backstory: As a seasoned certified Financial Risk Manager, CFA Level 3, and Risk Assessor for {company_name}, you specialize in

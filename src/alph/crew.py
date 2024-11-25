@@ -15,31 +15,58 @@ class Alph():
 	tasks_config = 'config/tasks.yaml'
 
 	@agent
-	def researcher(self) -> Agent:
+	def crypto_alpha_researcher(self) -> Agent:
 		return Agent(
-			config=self.agents_config['researcher'],
+			config=self.agents_config['crypto_alpha_researcher'],
 			# tools=[MyCustomTool()], # Example of custom tool, loaded on the beginning of file
 			verbose=True
 		)
 
 	@agent
-	def reporting_analyst(self) -> Agent:
+	def crypto_trading_advisor(self) -> Agent:
 		return Agent(
-			config=self.agents_config['reporting_analyst'],
+			config=self.agents_config['crypto_trading_advisor'],
+			verbose=True
+		)
+
+	@agent
+	def crypto_portfolio_manager(self) -> Agent:
+		return Agent(
+			config=self.agents_config['crypto_portfolio_manager'],
+			verbose=True
+		)
+
+	@agent
+	def crypto_risk_assessor(self) -> Agent:
+		return Agent(
+			config=self.agents_config['crypto_risk_assessor'],
+			# tools=[MyCustomTool()], # Example of custom tool, loaded on the beginning of file
 			verbose=True
 		)
 
 	@task
-	def research_task(self) -> Task:
+	def research_alpha_opportunities(self) -> Task:
 		return Task(
-			config=self.tasks_config['research_task'],
+			config=self.tasks_config['research_alpha_opportunities'],
 		)
 
 	@task
-	def reporting_task(self) -> Task:
+	def advise_trade_bot_executions(self) -> Task:
 		return Task(
-			config=self.tasks_config['reporting_task'],
+			config=self.tasks_config['advise_trade_bot_executions'],
 			output_file='report.md'
+		)
+
+	@task
+	def manage_asset_portfolio(self) -> Task:
+		return Task(
+			config=self.tasks_config['manage_asset_portfolio'],
+		)
+
+	@task
+	def assess_risks(self) -> Task:
+		return Task(
+			config=self.tasks_config['assess_risks'],
 		)
 
 	@crew
