@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
-from crewai_tools import BrowserbaseLoadTool
+from crewai_tools import BrowserbaseLoadTool, CodeDocsSearchTool, YoutubeChannelSearchTool
 
 # Load environment variables
 load_dotenv()
@@ -28,7 +28,11 @@ class Alph():
 			config=self.agents_config['crypto_alpha_researcher'],
 			# tools=[MyCustomTool()], # Example of custom tool, loaded on the beginning of file
 			verbose=True,
-			tools=[BrowserbaseLoadTool(BROWSERBASE_API_KEY, BROWSERBASE_PROJECT_ID)]
+			tools=[
+				BrowserbaseLoadTool(BROWSERBASE_API_KEY, BROWSERBASE_PROJECT_ID), 
+				CodeDocsSearchTool(), 
+				YoutubeChannelSearchTool(youtube_channel_handle='@RealVisionFinance')
+			]
 		)
 
 	@agent
@@ -43,7 +47,8 @@ class Alph():
 	def crypto_portfolio_manager(self) -> Agent:
 		return Agent(
 			config=self.agents_config['crypto_portfolio_manager'],
-			verbose=True
+			verbose=True,
+			tools=[CodeDocsSearchTool()]
 		)
 
 	@agent
