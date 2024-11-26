@@ -1,5 +1,13 @@
+import os
+from dotenv import load_dotenv
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
+from crewai_tools import BrowserbaseLoadTool
+
+# Load environment variables
+load_dotenv()
+BROWSERBASE_API_KEY = os.getenv('BROWSERBASE_API_KEY')
+BROWSERBASE_PROJECT_ID = os.getenv('BROWSERBASE_PROJECT_ID')
 
 # Uncomment the following line to use an example of a custom tool
 # from alph.tools.custom_tool import MyCustomTool
@@ -19,14 +27,16 @@ class Alph():
 		return Agent(
 			config=self.agents_config['crypto_alpha_researcher'],
 			# tools=[MyCustomTool()], # Example of custom tool, loaded on the beginning of file
-			verbose=True
+			verbose=True,
+			tools=[BrowserbaseLoadTool(BROWSERBASE_API_KEY, BROWSERBASE_PROJECT_ID)]
 		)
 
 	@agent
 	def crypto_trading_advisor(self) -> Agent:
 		return Agent(
 			config=self.agents_config['crypto_trading_advisor'],
-			verbose=True
+			verbose=True,
+			tools=[BrowserbaseLoadTool(BROWSERBASE_API_KEY, BROWSERBASE_PROJECT_ID)]
 		)
 
 	@agent
