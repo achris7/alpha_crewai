@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
-from crewai_tools import BrowserbaseLoadTool, CodeDocsSearchTool, YoutubeChannelSearchTool
+from crewai_tools import BrowserbaseLoadTool, CodeDocsSearchTool, YoutubeChannelSearchTool, CodeInterpreterTool, EXASearchTool, FileReadTool
 
 # Load environment variables
 load_dotenv()
@@ -31,7 +31,10 @@ class Alph():
 			tools=[
 				BrowserbaseLoadTool(BROWSERBASE_API_KEY, BROWSERBASE_PROJECT_ID), 
 				CodeDocsSearchTool(), 
-				YoutubeChannelSearchTool(youtube_channel_handle='@RealVisionFinance')
+				YoutubeChannelSearchTool(youtube_channel_handle='@RealVisionFinance'),
+				CodeInterpreterTool(),
+				EXASearchTool(),
+				FileReadTool()
 			]
 		)
 
@@ -40,7 +43,13 @@ class Alph():
 		return Agent(
 			config=self.agents_config['crypto_trading_advisor'],
 			verbose=True,
-			tools=[BrowserbaseLoadTool(BROWSERBASE_API_KEY, BROWSERBASE_PROJECT_ID)]
+			tools=[
+				BrowserbaseLoadTool(BROWSERBASE_API_KEY, BROWSERBASE_PROJECT_ID),
+				CodeDocsSearchTool(),
+				CodeInterpreterTool(),
+				EXASearchTool(),
+				FileReadTool()
+			]
 		)
 
 	@agent
@@ -48,14 +57,24 @@ class Alph():
 		return Agent(
 			config=self.agents_config['crypto_portfolio_manager'],
 			verbose=True,
-			tools=[CodeDocsSearchTool()]
+			tools=[
+				CodeDocsSearchTool(),
+				CodeInterpreterTool(),
+				EXASearchTool(),
+				FileReadTool()
+			]
 		)
 
 	@agent
 	def crypto_risk_assessor(self) -> Agent:
 		return Agent(
 			config=self.agents_config['crypto_risk_assessor'],
-			# tools=[MyCustomTool()], # Example of custom tool, loaded on the beginning of file
+			tools=[
+				CodeInterpreterTool(),
+				CodeDocsSearchTool(),
+				EXASearchTool(),
+				FileReadTool()
+			], # Example of custom tool, loaded on the beginning of file
 			verbose=True
 		)
 
